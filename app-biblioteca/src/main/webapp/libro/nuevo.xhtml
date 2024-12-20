@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Nuevo Libro</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</h:head>
+
+<h:body>
+	<div class="card mt-4 mx-5 shadow-sm">
+		<h:form>
+			<p:growl id="messages" />
+
+			<p:menubar hideDelay="1000">
+				<p:submenu label="Cliente" icon="pi pi-fw pi-user">
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{clienteController.listarClientes}"/>
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-user-plus" action="#{clienteController.nuevoCliente}"/>
+				</p:submenu>
+				<p:submenu label="Libro" icon="pi pi-fw pi-file">
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{libroController.listarLibros}"/>
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-plus" action="#{libroController.nuevoLibro}"/>
+				</p:submenu>
+
+				<p:submenu label="Prestamo" icon="pi pi-fw pi-bookmark">
+					<p:menuitem value="Generar Prestamo" icon="pi pi-fw pi-plus" action="#{prestamoController.nuevoPrestamo}"/>
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{prestamoController.listarPrestamos}"/>
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+	</div>
+
+	<div class="container mt-5">
+
+		<h:messages globalOnly="true" styleClass="alert alert-info" showSummary="false" showDetail="true" />
+
+		<h1 class="mb-3">Nuevo Libro</h1>
+
+		<h:form>
+			<div class="row mb-3">
+				<div class="col-md-6 form-group">
+					<h:outputText value="Titulo:" />
+					<h:inputText id="Titulo" value="#{libroController.libro.titulo}" title="Titulo" required="true" class="form-control" />
+				</div>
+
+				<div class="col-md-6 form-group">
+					<h:outputText value="Autor:" />
+					<h:inputText id="autor" value="#{libroController.libro.autor}" title="Autor" required="true" class="form-control" />
+				</div>
+
+				<div class="col-md-6 form-group">
+					<h:outputText value="Editorial:" />
+					<h:inputText id="editorial" value="#{libroController.libro.editorial}" title="Editorial" required="true" class="form-control" />
+				</div>
+
+				<div class="col-md-6 form-group">
+					<h:outputText value="Idioma:" />
+					<h:selectOneMenu id="idioma" value="#{libroController.libro.idioma}" title="Idioma" required="true" class="form-control">
+						<f:selectItem itemValue="Español" itemLabel="Español" />
+						<f:selectItem itemValue="Ingles" itemLabel="Ingles" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="col-md-6 form-group">
+					<h:outputText value="Stock:" />
+					<h:inputText id="stock" value="#{libroController.libro.cantidadActual}" title="Stock" required="true" class="form-control" />
+				</div>
+
+				<div class="col-md-6 form-group">
+					<h:outputText value="Multa:" />
+					<h:inputText id="multa" value="#{libroController.libro.multa}" title="Multa" required="true" class="form-control" />
+				</div>
+
+				<div class="col-12 form-group">
+					<h:outputText value="Descripción:" />
+					<h:inputTextarea id="descripcion" value="#{libroController.libro.descripcion}" title="Descripción" required="true" class="form-control" />
+				</div>
+			</div>
+
+			<div class="text-center mt-3">
+				<h:commandButton action="#{libroController.crear}" value="Guardar" class="btn btn-success" />
+				&nbsp;
+				<h:commandButton action="#{libroController.listarLibros}" value="Cancelar" immediate="true" class="btn btn-secondary" />
+			</div>
+		</h:form>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</h:body>
+</html>

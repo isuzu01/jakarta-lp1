@@ -1,0 +1,16 @@
+
+# Ignorar la carpeta Servers
+Servers/
+
+# Ignorar la carpeta .metadata
+.metadata/
+
+# Ignorar la carpeta .settings dentro de cualquier carpeta
+**/.settings/
+
+# Ignorar la carpeta target dentro de cualquier carpeta
+**/target/
+
+# Ignorar los archivos .classpath y .project dentro de cualquier carpeta
+**/.classpath
+**/.project

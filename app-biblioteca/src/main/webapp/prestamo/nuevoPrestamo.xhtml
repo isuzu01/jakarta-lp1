@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:f="jakarta.faces.core">
+
+<h:head>
+	<title>Registrar Préstamo</title>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+</h:head>
+
+<h:body>
+	<div class="card mt-4 mx-5 shadow-sm">
+		<h:form>
+			<p:growl id="messages" />
+
+			<p:menubar hideDelay="1000">
+				<p:submenu label="Cliente" icon="pi pi-fw pi-user">
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars"
+						action="#{clienteController.listarClientes}" />
+					<p:menuitem value="Agregar" icon="pi pi-fw pi-user-plus"
+						action="#{clienteController.nuevoCliente}" />
+				</p:submenu>
+				<p:submenu label="Libro" icon="pi pi-fw pi-file">
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars"
+						action="#{libroController.listarLibros}" />
+					<p:menuitem value="Agregar" icon="pi pi-fw pi-plus"
+						action="#{libroController.nuevoLibro}" />
+				</p:submenu>
+				<p:submenu label="Prestamo" icon="pi pi-fw pi-bookmark">
+					<p:menuitem value="Generar Prestamo" icon="pi pi-fw pi-plus"
+						action="#{prestamoController.nuevoPrestamo}" />
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars"
+						action="#{prestamoController.listarPrestamos}" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+	</div>
+	<h:form id="prestamoForm">
+
+<p:growl id="growl" showDetail="true" life="5000" />
+
+
+		<!-- Formulario de Registro de Préstamo -->
+		<div class="container mt-5">
+			<h1 class="text-center mb-4">Registrar Préstamo</h1>
+
+
+			<!-- Panel para Detalles del Préstamo -->
+			<p:panel header="Detalles del Préstamo" styleClass="mx-auto"
+				style="width: 800px;">
+				<p:panelGrid columns="2" styleClass="form-grid" cellpadding="5">
+					<p:outputLabel for="libro" value="Libro:" />
+					<p:selectOneMenu id="libro"
+						value="#{prestamoController.detallePrestamoTemp.libro.libroId}"
+						style="width: 100%;">
+						<f:selectItem itemLabel="Seleccione un libro" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{prestamoController.libros}" var="libro"
+							itemLabel="#{libro.titulo}" itemValue="#{libro.libroId}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Agregar"
+						action="#{prestamoController.agregarItem}" icon="pi pi-save"
+						update="prestamoForm detalleTable growl" process="@this libro"
+						resetValues="true" style="margin-top: 10px;" />
+				</p:panelGrid>
+				
+				<p:panelGrid columns="1" styleClass="form-grid" cellpadding="5">
+				
+			<p:dataTable id="detalleTable"
+				value="#{prestamoController.detallesPrestamoList}" var="detalle"
+				styleClass="table-striped">
+				<p:column headerText="Libro">
+					<h:outputText value="#{detalle.libro.titulo}" />
+				</p:column>
+				<p:column headerText="Autor">
+					<h:outputText value="#{detalle.libro.autor}" />
+				</p:column>
+				<p:column headerText="Acciones">
+					<p:commandButton value="Eliminar"
+						action="#{prestamoController.eliminarItem(detalle)}"
+						update="detalleTable total" process="@this detalle"
+						icon="pi pi-trash" />
+				</p:column>
+			</p:dataTable>
+				</p:panelGrid>
+				
+				
+			</p:panel>
+
+			
+
+			<!-- Panel para Seleccionar Cliente -->
+			<p:panel header="Cliente" styleClass="mx-auto" style="width: 800px;">
+				<p:panelGrid columns="2" styleClass="form-grid" cellpadding="5">
+					<p:outputLabel for="cliente" value="Cliente:" />
+					<p:selectOneMenu id="cliente"
+						value="#{prestamoController.prestamo.cliente.clienteId}"
+						style="width: 100%;">
+						<f:selectItem itemLabel="Seleccione un cliente" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{prestamoController.clientes}"
+							var="cliente" itemLabel="#{cliente.nombre}"
+							itemValue="#{cliente.clienteId}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Confirmar Cliente"
+						action="#{prestamoController.confirmarCliente}"
+						update="prestamoForm" process="@this cliente" />
+					<p:commandButton value="Registrar Cliente"
+						action="#{prestamoController.nuevoCliente}" process="@this" />
+				</p:panelGrid>
+
+				
+				<div id="datosCliente" style="width: 800px;"
+					rendered="#{not empty prestamoController.prestamo.cliente}">
+					<p:panelGrid columns="2" styleClass="form-grid" cellpadding="5">
+						<p:outputLabel value="Nombre:" />
+						<h:outputText
+							value="#{prestamoController.prestamo.cliente.nombre}" />
+
+						<p:outputLabel value="DNI:" />
+						<h:outputText value="#{prestamoController.prestamo.cliente.dni}" />
+
+						<p:outputLabel value="Teléfono:" />
+						<h:outputText
+							value="#{prestamoController.prestamo.cliente.telefono}" />
+
+						<p:outputLabel value="Dirección:" />
+						<h:outputText
+							value="#{prestamoController.prestamo.cliente.direccion}" />
+					</p:panelGrid>
+				</div>
+			</p:panel>
+
+			
+			<p:panel header="Confirmar Fecha de Devolución" styleClass="mx-auto"
+				style="width: 800px;"
+				rendered="#{not empty prestamoController.prestamo.cliente}">
+				<p:outputLabel for="fechaDevolucion" value="Fecha de Devolución:" />
+				<p:datePicker id="fechaDevolucion"
+					value="#{prestamoController.prestamo.fechaDevolucion}"
+					monthNavigator="true" yearNavigator="true" showWeek="true"
+					showButtonBar="true" required="true"
+					requiredMessage="Ingrese la fecha" />
+
+				<p:commandButton value="Registrar Préstamo"
+					action="#{prestamoController.registrarPrestamo}"
+					update="prestamoForm" process="@form" />
+			</p:panel>
+		</div>
+
+	</h:form>
+</h:body>
+</html>

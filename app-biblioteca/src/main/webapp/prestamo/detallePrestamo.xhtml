@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registrar Préstamo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</h:head>
+
+<h:body>
+    <h:form>
+
+        <!-- Menú de navegación -->
+        <div class="card mt-4 mx-5 shadow-sm">
+            <p:growl id="messages" />
+
+            <p:menubar hideDelay="1000">
+                <p:submenu label="Cliente" icon="pi pi-fw pi-user">
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{clienteController.listarClientes}" />
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-user-plus" action="#{clienteController.listarLibros}" />
+                </p:submenu>
+                <p:submenu label="Libro" icon="pi pi-fw pi-file">
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{libroController.listarLibros}" />
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-plus" action="#{libroController.nuevoLibro}" />
+                </p:submenu>
+                <p:submenu label="Préstamo" icon="pi pi-fw pi-bookmark">
+                    <p:menuitem value="Generar Préstamo" icon="pi pi-fw pi-plus" action="#{prestamoController.nuevoPrestamo}" />
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{prestamoController.listarPrestamos}" />
+                </p:submenu>
+            </p:menubar>
+        </div>
+
+        <!-- Formulario de Registro de Préstamo -->
+        <div class="container mt-5">
+            <div class="card p-4 shadow-sm">
+                <h2 class="text-center mb-4">Registrar Préstamo</h2>
+
+                <h3>Información General</h3>
+                <p><strong>Cliente:</strong> #{prestamoController.prestamo.cliente.nombre} #{prestamoController.prestamo.cliente.apellidoPa} #{prestamoController.prestamo.cliente.apellidoMa}</p>
+                <p><strong>Fecha del Préstamo:</strong> #{prestamoController.prestamo.fechaPrestamo}</p>
+                <p><strong>Estado:</strong> #{prestamoController.prestamo.estado}</p>
+                <p><strong>Libros Prestados:</strong> #{prestamoController.prestamo.cantidad}</p>
+                <p><strong>Multa:</strong> #{prestamoController.prestamo.multaTotal}</p>
+
+                <h3 class="mt-4">Libros Prestados</h3>
+                <p:dataTable value="#{prestamoController.detallesPrestamoList}" var="detalle" paginator="true" rows="10">
+                    <p:column headerText="Título">
+                        <h:outputText value="#{detalle.libro.titulo}" />
+                    </p:column>
+                    <p:column headerText="Autor">
+                        <h:outputText value="#{detalle.libro.autor}" />
+                    </p:column>
+                    <p:column headerText="Multa">
+                        <h:outputText value="#{detalle.libro.multa}" />
+                    </p:column>
+                    <p:column headerText="Acción">
+                        <h:commandButton value="Devolver" action="#{prestamoController.marcarComoDevuelto(detalle)}" />
+                    </p:column>
+                </p:dataTable>
+
+                <div class="mt-4 text-center">
+                    <h:commandButton value="Volver" action="/prestamo/listaPrestamo?faces-redirect=true" styleClass="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+
+</html>

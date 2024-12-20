@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui" xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Lista de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</h:head>
+
+<body>
+    <div class="card mt-4 mx-5 shadow-sm">
+        <h:form>
+            <p:menubar hideDelay="1000">
+                <p:submenu label="Cliente" icon="pi pi-fw pi-user">
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{clienteController.listarClientes}" />
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-user-plus" action="#{clienteController.nuevoCliente}" />
+                </p:submenu>
+                <p:submenu label="Libro" icon="pi pi-fw pi-file">
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{libroController.listarLibros}" />
+                    <p:menuitem value="Agregar" icon="pi pi-fw pi-plus" action="#{libroController.nuevoLibro}" />
+                </p:submenu>
+                <p:submenu label="Prestamo" icon="pi pi-fw pi-bookmark">
+                    <p:menuitem value="Generar Prestamo" icon="pi pi-fw pi-plus" action="#{prestamoController.nuevoPrestamo}" />
+                    <p:menuitem value="Listar" icon="pi pi-fw pi-bars" action="#{prestamoController.listarPrestamos}" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </div>
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-end mb-3">
+            <h:form>
+                <h:commandButton action="#{loginController.logout}" value="Cerrar Sesión" styleClass="btn btn-danger" />
+            </h:form>
+        </div>
+
+        <div class="card shadow-sm p-4">
+            <h2 class="text-center mb-4">Lista de Clientes</h2>
+
+            <h:form>
+                <p:dataTable id="clientesTable" var="cliente" value="#{clienteController.clientes}" paginator="true"
+                             rows="10" emptyMessage="No se encontraron clientes" styleClass="table-responsive">
+
+                    <f:facet name="header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><strong>Clientes Registrados</strong></span>
+                            <p:inputText id="globalFilter" onkeyup="PF('clientesTable').filter()" placeholder="Buscar clientes..."
+                                         style="width: 15rem;" />
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="DNI" sortBy="#{cliente.dni}" filterBy="#{cliente.dni}">
+                        <h:outputText value="#{cliente.dni}" />
+                    </p:column>
+                    <p:column headerText="Nombre" sortBy="#{cliente.nombre}" filterBy="#{cliente.nombre}">
+                        <h:outputText value="#{cliente.nombre}" />
+                    </p:column>
+                    <p:column headerText="Apellidos" sortBy="#{cliente.apellidoPa}" filterBy="#{cliente.apellidoPa}">
+                        <h:outputText value="#{cliente.apellidoPa} #{cliente.apellidoPa}" />
+                    </p:column>
+                    <p:column headerText="Teléfono" sortBy="#{cliente.telefono}" filterBy="#{cliente.telefono}">
+                        <h:outputText value="#{cliente.telefono}" />
+                    </p:column>
+                    <p:column headerText="Email" sortBy="#{cliente.email}" filterBy="#{cliente.email}">
+                        <h:outputText value="#{cliente.email}" />
+                    </p:column>
+
+                    <p:column headerText="Acciones">
+                        <div class="d-flex justify-content-center">
+                            <p:commandButton value="Detalle" action="#{clienteController.verDetalleCliente}" icon="pi pi-info-circle"
+                                             styleClass="p-button-rounded p-button-outlined p-button-info mx-1">
+                                <f:param name="clienteId" value="#{cliente.clienteId}" />
+                            </p:commandButton>
+                            <p:commandButton value="Editar" action="#{clienteController.editarCliente}" icon="pi pi-pencil"
+                                             styleClass="p-button-rounded p-button-outlined p-button-warning mx-1">
+                                <f:param name="clienteId" value="#{cliente.clienteId}" />
+                            </p:commandButton>
+                            <p:commandButton value="Eliminar" action="#{clienteController.eliminarCliente}" icon="pi pi-trash"
+                                             styleClass="p-button-rounded p-button-outlined p-button-danger mx-1"
+                                             onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">
+                                <f:param name="clienteId" value="#{cliente.clienteId}" />
+                            </p:commandButton>
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+
+                <div class="text-center mt-4">
+                    <p:commandButton value="Nuevo Cliente" action="#{clienteController.nuevoCliente}" icon="pi pi-plus"
+                                     styleClass="p-button-outlined p-button-dark" />
+                </div>
+            </h:form>
+        </div>
+    </div>
+</body>
+</html>
