@@ -22,7 +22,11 @@ public class PrestamoDao {
 	}
 	
 	public void actualizarPrestamo(Prestamo prestamo) {
-        em.merge(prestamo);  
+		try {
+			em.merge(prestamo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 	
 	public List<Prestamo> obtenerPrestamos() {

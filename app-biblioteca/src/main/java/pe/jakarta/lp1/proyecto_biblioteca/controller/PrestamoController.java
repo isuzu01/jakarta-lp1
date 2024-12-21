@@ -59,7 +59,6 @@
 		
 		public void initt() {
 			clientes = clienteDao.obtenerClientes();
-			libros = libroDao.obtenerLibros();
 			
 		}
 	
@@ -144,7 +143,7 @@
 			}
 	
 			prestamo.setDetalles(detallesPrestamoList);
-			detallePrestamoTemp.getLibro().setCantidadActual(null);
+	
 			Integer clienteSeleccionadoId = prestamo.getCliente().getClienteId();
 	
 			Cliente cliente = obtenerClienteDeLaLista(clienteSeleccionadoId);
@@ -156,6 +155,8 @@
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Prestamo registrado de manera satisfactoria", ""));
 	
+	
+			listarPrestamos();
 			prestamo = new Prestamo();
 			
 	

@@ -22,6 +22,9 @@
 
 	<div class="card mt-4 mx-5 shadow-sm">
 		<h:form>
+		
+		
+	<p:growl id="growl" showDetail="true" life="5000" />
 			<p:growl id="messages" />
 
 			<p:menubar hideDelay="1000">
@@ -47,7 +50,7 @@
 		<h:form>
 			<p:dataTable var="prestamo" value="#{prestamoController.prestamos}" widgetVar="prestamosTable"
              emptyMessage="No se encontraron Préstamos con los criterios indicados"
-             paginator="true" 
+             paginator="true"  rows="10" 
              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
              currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
              rowsPerPageTemplate="5,10,{ShowAll|'All'}" 
@@ -82,7 +85,7 @@
 				</p:column>
 
 				<p:column headerText="Acciones">
-					<h:commandButton value="actualizar" 
+					<h:commandButton value="editar" 
                                  action="#{prestamoController.verDetalle(prestamo)}"
                                  styleClass="btn btn-dark btn-sm" />
 				</p:column>

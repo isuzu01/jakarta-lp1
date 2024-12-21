@@ -63,7 +63,7 @@ public class LibroDao {
 	
 	public List<Libro> obtenerLibrosDisponibles() {
 		List<Libro> libros;
-        libros = em.createQuery("select l from Libro l where l.stockActual > 0", Libro.class)
+        libros = em.createQuery("select l from Libro l where l.cantidadActual > 0", Libro.class)
                  .getResultList();
         
         return libros;

@@ -22,7 +22,7 @@ public class DetallePrestamo implements Serializable{
 
 	    @ManyToOne
 	    @JoinColumn(name = "LIBRO_ID", referencedColumnName = "LIBRO_ID", nullable = false)
-	    private Libro libro = new Libro();
+	    private Libro libro;
 
 	    @ManyToOne
 	    @JoinColumn(name = "PRESTAMO_ID", referencedColumnName = "PRESTAMO_ID", nullable = false)

@@ -66,23 +66,27 @@
                         <h:outputText value="#{cliente.email}" />
                     </p:column>
 
-                    <p:column headerText="Acciones">
-                        <div class="d-flex justify-content-center">
-                            <p:commandButton value="Detalle" action="#{clienteController.verDetalleCliente}" icon="pi pi-info-circle"
-                                             styleClass="p-button-rounded p-button-outlined p-button-info mx-1">
-                                <f:param name="clienteId" value="#{cliente.clienteId}" />
-                            </p:commandButton>
-                            <p:commandButton value="Editar" action="#{clienteController.editarCliente}" icon="pi pi-pencil"
-                                             styleClass="p-button-rounded p-button-outlined p-button-warning mx-1">
-                                <f:param name="clienteId" value="#{cliente.clienteId}" />
-                            </p:commandButton>
-                            <p:commandButton value="Eliminar" action="#{clienteController.eliminarCliente}" icon="pi pi-trash"
-                                             styleClass="p-button-rounded p-button-outlined p-button-danger mx-1"
-                                             onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">
-                                <f:param name="clienteId" value="#{cliente.clienteId}" />
-                            </p:commandButton>
-                        </div>
-                    </p:column>
+                    <p:column headerText="Acciones"
+						style="text-align: center">
+						<div style="display: flex; justify-content: space-between">
+							<p:commandButton icon="pi pi-info-circle"
+								styleClass="btn btn-success"
+								style="background-color: #28a745; border-color: #28a745;">
+								<f:param name="clienteId" value="#{cliente.clienteId}" />
+							</p:commandButton>
+
+							<p:commandButton icon="pi pi-pencil" styleClass="btn btn-info"
+								style="background-color: #17a2b8; border-color: #17a2b8;">
+								<f:param name="clienteId" value="#{cliente.clienteId}" />
+							</p:commandButton>
+
+							<p:commandButton icon="pi pi-trash" styleClass="btn btn-warning"
+								style="background-color: #dc3545; border-color: #dc3545;">
+								<f:param name="clienteId" value="#{cliente.clienteId}" />
+							</p:commandButton>
+
+						</div>
+					</p:column>
 
                 </p:dataTable>
 

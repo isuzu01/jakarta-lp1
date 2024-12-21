@@ -11,9 +11,6 @@
 		rel="stylesheet" />
 </h:head>
 
-<h:messages globalOnly="true" styleClass="alert alert-info" showSummary="false" showDetail="true" />
- 
- 
 <body>
 
 <div class="card">
@@ -101,8 +98,8 @@
 			<div class="text-center mt-3">
 				<h:commandButton action="#{clienteController.crear}" value="Guardar"
 					class="btn btn-success" />
-				&nbsp;
-				<h:commandButton value="Regresar" onclick="window.history.go(-1);" class="btn btn-success" />
+			&nbsp;
+				<h:commandButton action="#{clienteController.listarClientes}" value="lista" immediate="true" class="btn btn-secondary" />
 			</div>
 		</h:form>
 
