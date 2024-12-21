@@ -67,10 +67,7 @@
                     <h:commandButton action="#{libroController.editarLibro}" value="Editar" class="btn btn-warning">
                         <f:param name="libroId" value="#{libroController.libro.libroId}" />
                     </h:commandButton>
-                    <h:commandButton action="#{libroController.eliminarLibro}" value="Eliminar" class="btn btn-danger"
-                        onclick="return confirm('¿Estás seguro de que deseas eliminar este libro?');">
-                        <f:param name="libroId" value="#{libroController.libro.libroId}" />
-                    </h:commandButton>
+                    
                 </div>
             </div>
         </h:form>

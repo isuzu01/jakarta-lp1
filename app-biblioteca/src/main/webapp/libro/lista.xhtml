@@ -62,8 +62,11 @@
                     <p:column headerText="Idioma" sortBy="#{libro.idioma}" filterBy="#{libro.idioma}">
                         <h:outputText value="#{libro.idioma}" />
                     </p:column>
-                    <p:column headerText="Cantidad Actual" sortBy="#{libro.cantidadActual}" filterBy="#{libro.cantidadActual}">
+                    <p:column headerText="Cantidad disponible" sortBy="#{libro.cantidadActual}" filterBy="#{libro.cantidadActual}">
                         <h:outputText value="#{libro.cantidadActual}" />
+                    </p:column>
+                    <p:column headerText="Cantidad prestado" sortBy="#{libro.cantidadPrestados}" filterBy="#{libro.cantidadPrestados}">
+                        <h:outputText value="#{libro.cantidadPrestados}" />
                     </p:column>
 
                     <p:column headerText="Acciones">
@@ -76,11 +79,7 @@
                                 styleClass="btn btn-primary btn-sm">
                                 <f:param name="libroId" value="#{libro.libroId}" />
                             </p:commandButton>
-                            <p:commandButton value="Eliminar" action="#{libroController.eliminar}" icon="pi pi-trash"
-                                styleClass="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Estás seguro de que deseas eliminar este libro?');">
-                                <f:param name="libroId" value="#{libro.libroId}" />
-                            </p:commandButton>
+                           
                         </div>
                     </p:column>
 

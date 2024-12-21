@@ -8,8 +8,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Registros de Préstamos</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<h:outputStylesheet name="css/style.css" />
 </h:head>
 <h:body>
+
+<style>
+    .pendiente {
+        background-color: #c30010 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+    }
+</style>
+
 	<div class="card mt-4 mx-5 shadow-sm">
 		<h:form>
 			<p:growl id="messages" />
@@ -36,10 +46,14 @@
 
 		<h:form>
 			<p:dataTable var="prestamo" value="#{prestamoController.prestamos}" widgetVar="prestamosTable"
-				emptyMessage="No se encontraron Préstamos con los criterios indicados" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                     rowsPerPageTemplate="5,10,{ShowAll|'All'}" rowStyleClass="#{prestamo.cantidad le 2 ? 'cheap' : null}"
-				filteredValue="#{prestamoController.filteredPrestamos}" styleClass="table-responsive">
+             emptyMessage="No se encontraron Préstamos con los criterios indicados"
+             paginator="true" 
+             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+             rowsPerPageTemplate="5,10,{ShowAll|'All'}" 
+             filteredValue="#{prestamoController.filteredPrestamos}" 
+             styleClass="table-responsive"
+             rowStyleClass="#{prestamo.estado eq 'Pendiente' ? 'pendiente' : 'devuelto'}">
 
 				<f:facet name="header">
 					<span>Listado de Préstamos</span>
@@ -63,19 +77,14 @@
 					<h:outputText value="#{prestamo.fechaDevolucion}" />
 				</p:column>
 
-				<p:column headerText="Cantidad" sortBy="#{prestamo.cantidad}" filterBy="#{prestamo.cantidad}">
-					<h:outputText value="#{prestamo.cantidad}" />
-				</p:column>
-
 				<p:column headerText="Estado" sortBy="#{prestamo.estado}" filterBy="#{prestamo.estado}">
 					<h:outputText value="#{prestamo.estado}" />
 				</p:column>
 
 				<p:column headerText="Acciones">
-					<h:commandButton value="Ver Detalle" 
+					<h:commandButton value="actualizar" 
                                  action="#{prestamoController.verDetalle(prestamo)}"
-                                 styleClass="btn btn-primary btn-sm" />
-					<h:commandButton action="#{prestamoController.editarPrestamo(prestamo)}" value="Editar" styleClass="btn btn-secondary btn-sm" />
+                                 styleClass="btn btn-dark btn-sm" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

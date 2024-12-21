@@ -1,6 +1,7 @@
 package pe.jakarta.lp1.proyecto_biblioteca.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.ejb.EJB;
@@ -18,7 +19,7 @@ public class LibroController implements Serializable {
 	@EJB
 	private LibroDao dao;
 
-	private List<Libro> libros;
+	private List<Libro> libros ;
 	private Libro libro;
 	//
 	//

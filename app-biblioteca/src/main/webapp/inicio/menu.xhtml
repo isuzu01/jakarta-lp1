@@ -9,6 +9,14 @@
 </h:head>
 
 <h:body>
+
+	<div class="d-flex justify-content-end">
+            <h:form>
+                <h:commandButton action="#{loginController.logout}" value="Cerrar Sesión"
+                    styleClass="btn btn-danger" />
+            </h:form>
+        </div>
+
 	<div class="text-center mt-3">
 		<h:form>
 			<h:commandLink action="#{libroController.listarLibros}"

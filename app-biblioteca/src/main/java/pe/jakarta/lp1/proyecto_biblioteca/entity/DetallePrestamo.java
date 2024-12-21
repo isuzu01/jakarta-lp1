@@ -28,9 +28,11 @@ public class DetallePrestamo implements Serializable{
 	    @JoinColumn(name = "PRESTAMO_ID", referencedColumnName = "PRESTAMO_ID", nullable = false)
 	    private Prestamo prestamo;
 	    
+	    @Column(name = "ESTADO")
 	    private String estado = "Prestado";
 	    
-	    
+	    private Double multaRetraso;
+
 
 		public Integer getDetallePrestamoId() {
 			return detallePrestamoId;
@@ -64,7 +66,13 @@ public class DetallePrestamo implements Serializable{
 		        this.estado = estado;
 		    }
 		    
-		    
+		    public Double getMultaRetraso() {
+		        return multaRetraso;
+		    }
+
+		    public void setMultaRetraso(Double multaRetraso) {
+		        this.multaRetraso = multaRetraso;
+		    }
 		    
 
 }
